@@ -373,6 +373,24 @@
       color: var(--accent);
     }
 
+    .designer-link {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .designer-link a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: bold;
+      transition: opacity 0.3s;
+    }
+
+    .designer-link a:hover {
+      opacity: 0.8;
+      text-decoration: underline;
+    }
+
     .loader {
       text-align: center;
       padding: 3rem;
@@ -606,6 +624,7 @@
   <!-- Footer -->
   <footer>
     <p>© مشاور املاک خانی - بلوار امام علی، قبل از بلوار معلم</p>
+    <p class="designer-link">طراح سایت: <a href="https://abolfazlglow-debug.github.io/Profile/" target="_blank" rel="noopener noreferrer">طراح سایت</a></p>
     <a href="javascript:void(0)" onclick="showView('admin')" class="admin-link">ورود به پنل مدیریت</a>
   </footer>
 
