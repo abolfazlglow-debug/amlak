@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مشاور املاک خانی | خرید، فروش و رهن و اجاره ملک</title>
+  <meta name="description" content="خرید، فروش، رهن، اجاره، پیش‌فروش و مشارکت در ساخت املاک و مستغلات. مشاور املاک خانی همراه و مشاور امین شما.">
+  
+  <!-- فونت وزیرمتن -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+
+  <style>
+    :root {
+      --primary: #0f2c59;
+      --primary-light: #1e3e62;
+      --accent: #d4af37;
+      --accent-hover: #b89628;
+      --bg-light: #f8f9fa;
+      --card-bg: #ffffff;
+      --text-main: #2b2b2b;
+      --text-muted: #6c757d;
+      --border-color: #e2e8f0;
+      --radius: 12px;
+      --shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Vazirmatn', sans-serif;
+    }
+
+    body {
+      direction: rtl;
+      background-color: var(--bg-light);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 70px;
+    }
+
+    /* Header & Navigation */
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 1rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .logo-section h1 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+      cursor: pointer;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--accent);
+    }
+
+    .contact-nav-btn {
+      background: var(--accent);
+      color: var(--primary);
+      padding: 0.5rem 1.2rem;
+      border-radius: 20px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .contact-nav-btn:hover {
+      background: var(--accent-hover);
+    }
+
+    /* Views Framework */
+    .view {
+      display: none;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(rgba(15, 44, 89, 0.88), rgba(15, 44, 89, 0.92)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600') center/cover;
+      color: white;
+      padding: 4.5rem 1rem;
+      text-align: center;
+      border-radius: 0 0 24px 24px;
+    }
+
+    .hero h2 {
+      font-size: 2.3rem;
+      margin-bottom: 0.8rem;
+      font-weight: 800;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: #e2e8f0;
+      margin-bottom: 2rem;
+    }
+
+    /* Search Box Card */
+    .search-card {
+      background: white;
+      color: var(--text-main);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .search-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-bottom: 1rem;
+    }
+
+    select, input, textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      outline: none;
+      font-size: 0.95rem;
+    }
+
+    select:focus, input:focus, textarea:focus {
+      border-color: var(--primary);
+    }
+
+    .btn-search {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s;
+    }
+
+    .btn-search:hover {
+      background: var(--primary-light);
+    }
+
+    /* Listings Grid & Cards */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 1.2rem;
+    }
+
+    .tag {
+      display: inline-block;
+      background: rgba(212, 175, 55, 0.15);
+      color: #8b6f10;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+
+    .card-price {
+      font-size: 1.05rem;
+      color: var(--primary);
+      font-weight: 800;
+      margin-bottom: 0.8rem;
+    }
+
+    .card-details {
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      border-top: 1px solid var(--border-color);
+      padding-top: 0.8rem;
+    }
+
+    /* Single Property Page */
+    .single-property-container {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .gallery-main {
+      width: 100%;
+      max-height: 450px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      margin-bottom: 1.5rem;
+    }
+
+    .prop-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 1rem;
+      background: var(--bg-light);
+      padding: 1rem;
+      border-radius: var(--radius);
+      margin: 1.5rem 0;
+    }
+
+    .meta-item {
+      text-align: center;
+    }
+
+    .meta-item span {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .meta-item strong {
+      font-size: 1.1rem;
+      color: var(--primary);
+    }
+
+    /* Admin & Forms */
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      transition: opacity 0.3s;
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Sticky Call Bar for Mobile */
+    .sticky-call-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-around;
+      padding: 0.8rem;
+      z-index: 999;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    }
+
+    .btn-call {
+      background: #25d366;
+      color: white;
+      text-decoration: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 20px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-phone {
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 20px;
+      font-weight: bold;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 4rem;
+    }
+
+    footer a.admin-link {
+      color: rgba(255, 255, 255, 0.4);
+      text-decoration: none;
+      font-size: 0.8rem;
+      margin-top: 10px;
+      display: inline-block;
+    }
+
+    footer a.admin-link:hover {
+      color: var(--accent);
+    }
+
+    .loader {
+      text-align: center;
+      padding: 3rem;
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 768px) {
+      .hero h2 { font-size: 1.6rem; }
+      nav ul { gap: 10px; font-size: 0.9rem; }
+      .sticky-call-bar { padding: 0.5rem; }
+      .btn-call, .btn-phone { font-size: 0.85rem; padding: 0.5rem 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <div class="logo-section">
+        <h1 style="cursor: pointer;" onclick="showView('home')">املاک خانی</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a onclick="showView('home')" id="nav-home" class="active">صفحه اصلی</a></li>
+          <li><a onclick="showView('listings')" id="nav-listings">لیست املاک</a></li>
+          <li><a onclick="showView('about')" id="nav-about">درباره ما</a></li>
+          <li><a onclick="showView('contact')" id="nav-contact">تماس با ما</a></li>
+        </ul>
+      </nav>
+      <a href="tel:09138131077" class="contact-nav-btn">مشاوره رایگان</a>
+    </div>
+  </header>
+
+  <!-- HOME VIEW -->
+  <div id="view-home" class="view active">
+    <div class="hero">
+      <h2>تجربه معاملاتی امن، شفاف و ماندگار در حوزه املاک و مستغلات</h2>
+      <p>ارائه حرفه‌ای‌ترین خدمات خرید، فروش، رهن و اجاره در منطقه و محدوده همجوار</p>
+      
+      <!-- Search Filter Bar -->
+      <div class="search-card">
+        <div class="search-grid">
+          <select id="home-filter-type">
+            <option value="">همه انواع معامله</option>
+            <option value="فروش">فروش</option>
+            <option value="رهن و اجاره">رهن و اجاره</option>
+            <option value="مشارکت در ساخت">مشارکت در ساخت</option>
+            <option value="پیش‌فروش">پیش‌فروش</option>
+          </select>
+
+          <select id="home-filter-category">
+            <option value="">همه دسته‌ها</option>
+            <option value="آپارتمان">آپارتمان</option>
+            <option value="ویلا">ویلا / خانه ویلایی</option>
+            <option value="زمین">زمین / کلنگی</option>
+            <option value="تجاری">تجاری / مغازه</option>
+          </select>
+
+          <input type="number" id="home-filter-max-price" placeholder="حداکثر قیمت (تومان)">
+        </div>
+        <button class="btn-search" onclick="handleHomeSearch()">جستجوی ملک</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <h3 style="margin-bottom: 1rem; border-right: 4px solid var(--accent); padding-right: 8px;">جدیدترین فایل‌های املاک</h3>
+      <div id="home-featured-listings" class="grid">
+        <div class="loader">در حال دریافت اطلاعات املاک...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LISTINGS VIEW -->
+  <div id="view-listings" class="view">
+    <div class="container">
+      <h2>فهرست کامل املاک و مستغلات</h2>
+      <br>
+      <div class="search-card" style="margin-bottom: 2rem;">
+        <div class="search-grid">
+          <select id="filter-type" onchange="filterListings()">
+            <option value="">همه انواع معامله</option>
+            <option value="فروش">فروش</option>
+            <option value="رهن و اجاره">رهن و اجاره</option>
+            <option value="مشارکت در ساخت">مشارکت در ساخت</option>
+            <option value="پیش‌فروش">پیش‌فروش</option>
+          </select>
+          <select id="filter-category" onchange="filterListings()">
+            <option value="">همه دسته‌ها</option>
+            <option value="آپارتمان">آپارتمان</option>
+            <option value="ویلا">ویلا</option>
+            <option value="زمین">زمین</option>
+            <option value="تجاری">تجاری</option>
+          </select>
+          <select id="filter-bedrooms" onchange="filterListings()">
+            <option value="">تعداد خواب</option>
+            <option value="1">1 خوابه</option>
+            <option value="2">2 خوابه</option>
+            <option value="3">3 خوابه و بیشتر</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="all-listings-grid" class="grid"></div>
+    </div>
+  </div>
+
+  <!-- SINGLE PROPERTY VIEW -->
+  <div id="view-single" class="view">
+    <div class="container">
+      <div class="single-property-container" id="single-property-content"></div>
+    </div>
+  </div>
+
+  <!-- ABOUT US VIEW -->
+  <div id="view-about" class="view">
+    <div class="container">
+      <div class="single-property-container">
+        <h2 style="color: var(--primary);">درباره مشاور املاک خانی</h2>
+        <br>
+        <p>دفتر مشاور املاک خانی با سال‌ها تجربه درخشان و شناخت کامل از بازار املاک منطقه، نجف‌آباد، ویلاشهر و حومه، مفتخر است که خدماتی صادقانه، شفاف و کارشناسی‌شده را به مشتریان محترم ارائه می‌دهد.</p>
+        <br>
+        <p>رویکرد ما مبتنی بر حفظ منافع خریداران و فروشندگان و ایجاد یک معامله امن و مطمئن است. ما در تمامی مراحل قیمت‌گذاری، کارشناسی اسناد، عقد قرارداد و سرمایه‌گذاری همراه شما هستیم.</p>
+        <br>
+        <div style="background: var(--bg-light); padding: 1.5rem; border-radius: 8px;">
+          <h4>مزایای انتخاب املاک خانی</h4>
+          <ul style="margin-right: 1.5rem; margin-top: 0.5rem;">
+            <li>مشاوره تخصصی و قیمت‌گذاری واقعی بازار</li>
+            <li>استعلام دقیق مدارک و اسناد قبل از عقد قرارداد</li>
+            <li>تنظیم دقیق مبایعه‌نامه و قولنامه رسمی</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT US VIEW -->
+  <div id="view-contact" class="view">
+    <div class="container">
+      <div class="single-property-container">
+        <h2 style="color: var(--primary);">تماس با ما و آدرس دفتر</h2>
+        <br>
+        <p><strong>آدرس دفتر:</strong> اصفهان، ویلاشهر، بلوار امام علی، قبل از بلوار معلم</p>
+        <p><strong>تلفن‌های تماس:</strong> <a href="tel:09138131077">09138131077</a> | <a href="tel:09300311404">09300311404</a></p>
+        <p><strong>ساعات کاری:</strong> همه روزه از ساعت 9:00 الی 21:00 (حتی روزهای تعطیل با هماهنگی قبلی)</p>
+        <br>
+        <div style="width: 100%; height: 300px; background: #eee; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #666;">
+          موقعیت مکانی دفتر: ویلاشهر، بلوار امام علی
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN VIEW -->
+  <div id="view-admin" class="view">
+    <div class="container">
+      <div class="single-property-container" style="max-width: 600px; margin: 0 auto;">
+        <h2>ثبت ملک جدید در سیستم</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">اطلاعات ملک را وارد کنید تا به‌صورت مستقیم در گوگل شیت ذخیره و در سایت قرار گیرد.</p>
+        
+        <form id="admin-form" onsubmit="handleAdminSubmit(event)">
+          <div class="form-group">
+            <label>رمز عبور مدیریت</label>
+            <input type="password" id="adm-token" required placeholder="رمز مدیریت را وارد کنید">
+          </div>
+          <div class="form-group">
+            <label>عنوان ملک</label>
+            <input type="text" id="adm-title" required placeholder="مثلاً: آپارتمان 120 متری نوساز">
+          </div>
+          <div class="form-group">
+            <label>نوع معامله</label>
+            <select id="adm-type">
+              <option value="فروش">فروش</option>
+              <option value="رهن و اجاره">رهن و اجاره</option>
+              <option value="مشارکت در ساخت">مشارکت در ساخت</option>
+              <option value="پیش‌فروش">پیش‌فروش</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>دسته‌بندی</label>
+            <select id="adm-category">
+              <option value="آپارتمان">آپارتمان</option>
+              <option value="ویلا">ویلا / خانه ویلایی</option>
+              <option value="زمین">زمین / کلنگی</option>
+              <option value="تجاری">تجاری / مغازه</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>قیمت کل (تومان) / یا مبلغ رهن</label>
+            <input type="number" id="adm-price" value="0">
+          </div>
+          <div class="form-group">
+            <label>اجاره ماهانه (تومان - در صورت اجاره‌ای بودن)</label>
+            <input type="number" id="adm-rent" value="0">
+          </div>
+          <div class="form-group">
+            <label>متراژ (مترمربع)</label>
+            <input type="number" id="adm-area" required placeholder="120">
+          </div>
+          <div class="form-group">
+            <label>تعداد خواب</label>
+            <input type="number" id="adm-bedrooms" value="2">
+          </div>
+          <div class="form-group">
+            <label>آدرس دقیق / محدوده ملک</label>
+            <input type="text" id="adm-address" required placeholder="محدوده ملک...">
+          </div>
+          <div class="form-group">
+            <label>لینک عکس (URL) - چند عکس را با کاما جدا کنید</label>
+            <input type="text" id="adm-images" placeholder="https://..." required>
+          </div>
+          <div class="form-group">
+            <label>توضیحات کامل ملک</label>
+            <textarea id="adm-description" rows="4" placeholder="ویژگی‌ها، امکانات (آسانسور، پارکینگ، سند و...)"></textarea>
+          </div>
+          <button type="submit" id="admin-submit-btn" class="btn-primary" style="width: 100%;">ثبت و انتشار ملک</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Mobile Call Buttons -->
+  <div class="sticky-call-bar">
+    <a href="https://wa.me/989138131077" target="_blank" rel="noopener noreferrer" class="btn-call">ارسال پیام واتساپ</a>
+    <a href="tel:09138131077" class="btn-phone">09138131077</a>
+    <a href="tel:09300311404" class="btn-phone">09300311404</a>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© مشاور املاک خانی - بلوار امام علی، قبل از بلوار معلم</p>
+    <a href="javascript:void(0)" onclick="showView('admin')" class="admin-link">ورود به پنل مدیریت</a>
+  </footer>
+
+  <!-- JavaScript Logic -->
+  <script>
+    const CONFIG = {
+      API_URL: "https://script.google.com/macros/s/AKfycbxMymkvnfRDtA8jN6WFw-rJFFBNRve4ms5OUmv8jxI_fZNuoYd9cE5RQw_oZd8Eg54/exec"
+    };
+
+    let globalListings = [];
+
+    document.addEventListener("DOMContentLoaded", () => {
+      fetchListings();
+      
+      const currentHash = window.location.hash.replace('#', '');
+      if (currentHash) {
+        showView(currentHash, false);
+      }
+    });
+
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash.replace('#', '') || 'home';
+      showView(hash, false);
+    });
+
+    function showView(viewName, updateHash = true) {
+      document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('nav a').forEach(el => el.classList.remove('active'));
+      
+      const targetView = document.getElementById(`view-${viewName}`);
+      if (targetView) targetView.classList.add('active');
+      
+      const targetNav = document.getElementById(`nav-${viewName}`);
+      if (targetNav) targetNav.classList.add('active');
+
+      if (updateHash && viewName !== 'single') {
+        window.location.hash = viewName;
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function formatPrice(num) {
+      if (!num || num == 0) return "توافقی / تماس بگیرید";
+      return Number(num).toLocaleString('fa-IR') + " تومان";
+    }
+
+    function processImageUrl(url) {
+      if (!url) return 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800';
+      url = url.trim();
+      if (url.includes('drive.google.com')) {
+        const fileIdMatch = url.match(/\/d\/([^\/]+)/) || url.match(/id=([^&]+)/);
+        if (fileIdMatch && fileIdMatch[1]) {
+          return `https://drive.google.com/uc?export=view&id=${fileIdMatch[1]}`;
+        }
+      }
+      return url;
+    }
+
+    async function fetchListings() {
+      try {
+        const res = await fetch(CONFIG.API_URL);
+        const result = await res.json();
+        
+        if (result.status === "success") {
+          globalListings = result.data || [];
+          renderHomeListings(globalListings);
+          renderListingsGrid(globalListings);
+        } else {
+          showError("خطا در دریافت اطلاعات دیتابیس.");
+        }
+      } catch (err) {
+        console.error(err);
+        showError("ارتباط با گوگل شیت برقرار نشد. لطفاً اتصال اینترنت یا لینک API را بررسی کنید.");
+      }
+    }
+
+    function showError(msg) {
+      document.getElementById('home-featured-listings').innerHTML = `<p style="color:red; text-align:center; grid-column: 1/-1;">${msg}</p>`;
+    }
+
+    function renderHomeListings(data) {
+      const container = document.getElementById('home-featured-listings');
+      if (data.length === 0) {
+        container.innerHTML = "<p style='grid-column: 1/-1; text-align:center;'>هیچ ملکی یافت نشد.</p>";
+        return;
+      }
+      container.innerHTML = data.slice(0, 6).map(item => createCardHTML(item)).join('');
+    }
+
+    function renderListingsGrid(data) {
+      const container = document.getElementById('all-listings-grid');
+      if (data.length === 0) {
+        container.innerHTML = "<p style='grid-column: 1/-1; text-align:center;'>ملکی با این مشخصات یافت نشد.</p>";
+        return;
+      }
+      container.innerHTML = data.map(item => createCardHTML(item)).join('');
+    }
+
+    function createCardHTML(item) {
+      const imagesArray = Array.isArray(item.images) ? item.images : (typeof item.images === 'string' ? item.images.split(',') : []);
+      const rawImg = imagesArray.length > 0 ? imagesArray[0] : '';
+      const imageSrc = processImageUrl(rawImg);
+      
+      let priceDisplay = formatPrice(item.price);
+      if (item.type === "رهن و اجاره") {
+        priceDisplay = `رهن: ${formatPrice(item.price)}<br><small style="font-size:0.85rem; color:#555;">اجاره: ${formatPrice(item.rent)}</small>`;
+      }
+
+      return `
+        <div class="card" onclick="openProperty('${item.id}')">
+          <img src="${imageSrc}" class="card-img" alt="${item.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600'">
+          <div class="card-body">
+            <span class="tag">${item.type} | ${item.category}</span>
+            <h4 class="card-title">${item.title}</h4>
+            <div class="card-price">${priceDisplay}</div>
+            <div class="card-details">
+              <span>متراژ: ${item.area} متر</span>
+              <span>تعداد خواب: ${item.bedrooms}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function filterListings() {
+      const type = document.getElementById('filter-type').value;
+      const category = document.getElementById('filter-category').value;
+      const bedrooms = document.getElementById('filter-bedrooms').value;
+
+      const filtered = globalListings.filter(item => {
+        return (!type || item.type === type) &&
+               (!category || item.category === category) &&
+               (!bedrooms || (bedrooms === "3" ? Number(item.bedrooms) >= 3 : Number(item.bedrooms) == Number(bedrooms)));
+      });
+
+      renderListingsGrid(filtered);
+    }
+
+    function handleHomeSearch() {
+      const type = document.getElementById('home-filter-type').value;
+      const category = document.getElementById('home-filter-category').value;
+      const maxPrice = document.getElementById('home-filter-max-price').value;
+
+      const filtered = globalListings.filter(item => {
+        return (!type || item.type === type) &&
+               (!category || item.category === category) &&
+               (!maxPrice || Number(item.price) <= Number(maxPrice));
+      });
+
+      showView('listings');
+      renderListingsGrid(filtered);
+    }
+
+    function openProperty(id) {
+      const prop = globalListings.find(p => String(p.id) === String(id));
+      if (!prop) return;
+
+      const imagesArray = Array.isArray(prop.images) ? prop.images : (typeof prop.images === 'string' ? prop.images.split(',') : []);
+      const rawImg = imagesArray.length > 0 ? imagesArray[0] : '';
+      const imageSrc = processImageUrl(rawImg);
+
+      const html = `
+        <button class="btn-search" style="width: auto; margin-bottom: 1.5rem;" onclick="showView('listings')">بازگشت به لیست املاک</button>
+        <h2>${prop.title}</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">موقعیت: ${prop.address || 'ثبت نشده'}</p>
+        
+        <img src="${imageSrc}" class="gallery-main" alt="${prop.title}" onerror="this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800'">
+        
+        <div class="prop-meta-grid">
+          <div class="meta-item"><span>نوع معامله</span><strong>${prop.type}</strong></div>
+          <div class="meta-item"><span>دسته‌بندی</span><strong>${prop.category}</strong></div>
+          <div class="meta-item"><span>متراژ</span><strong>${prop.area} متر</strong></div>
+          <div class="meta-item"><span>تعداد خواب</span><strong>${prop.bedrooms}</strong></div>
+        </div>
+
+        <div style="font-size: 1.3rem; color: var(--primary); font-weight: 800; margin-bottom: 1.5rem;">
+          ${prop.type === 'رهن و اجاره' ? 'مبلغ رهن: ' : 'قیمت کل: '} ${formatPrice(prop.price)}
+          ${prop.rent > 0 ? `<br><small style="font-size: 1rem; color: #555;">اجاره ماهانه: ${formatPrice(prop.rent)}</small>` : ''}
+        </div>
+
+        <h3>توضیحات تکمیلی:</h3>
+        <p style="margin-top: 0.5rem; line-height: 1.8; white-space: pre-line;">${prop.description || 'توضیحات تکمیلی توسط مشاور ثبت نشده است.'}</p>
+
+        <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(212, 175, 55, 0.12); border-radius: 12px; border-right: 4px solid var(--accent);">
+          <h4>جهت هماهنگی و بازدید این ملک:</h4>
+          <p style="margin-top: 0.5rem;">با دفتر املاک خانی تماس بگیرید:</p>
+          <p style="font-size: 1.2rem; font-weight: bold; margin-top: 0.5rem; direction: ltr; text-align: right;">09138131077 | 09300311404</p>
+        </div>
+      `;
+
+      document.getElementById('single-property-content').innerHTML = html;
+      showView('single');
+    }
+
+    async function handleAdminSubmit(e) {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('admin-submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.innerText = "در حال ثبت اطلاعات...";
+
+      const rawImages = document.getElementById('adm-images').value;
+      const imagesList = rawImages ? rawImages.split(',').map(s => s.trim()).filter(s => s.length > 0) : [];
+
+      const payload = {
+        token: document.getElementById('adm-token').value,
+        title: document.getElementById('adm-title').value,
+        type: document.getElementById('adm-type').value,
+        category: document.getElementById('adm-category').value,
+        price: Number(document.getElementById('adm-price').value),
+        rent: Number(document.getElementById('adm-rent').value),
+        area: Number(document.getElementById('adm-area').value),
+        bedrooms: Number(document.getElementById('adm-bedrooms').value),
+        address: document.getElementById('adm-address').value,
+        description: document.getElementById('adm-description').value,
+        images: imagesList,
+        phone: "09138131077",
+        status: "فعال"
+      };
+
+      try {
+        const res = await fetch(CONFIG.API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify(payload)
+        });
+        
+        const resData = await res.json();
+        
+        if (resData.status === "success") {
+          alert("ملک با موفقیت در گوگل شیت ثبت و منتشر شد.");
+          document.getElementById('admin-form').reset();
+          await fetchListings();
+          showView('listings');
+        } else {
+          alert("خطا: " + (resData.message || "اطلاعات ثبت نشد. رمز عبور را بررسی کنید."));
+        }
+      } catch (err) {
+        alert("خطا در ارسال اطلاعات به گوگل شیت. لطفا از معتبر بودن رمز عبور یا اینترنت اطمینان حاصل کنید.");
+        console.error(err);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "ثبت و انتشار ملک";
+      }
+    }
+  </script>
+</body>
+</html>
