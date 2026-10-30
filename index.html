@@ -6,6 +6,9 @@
   <title>مشاور املاک خانی | خرید، فروش و رهن و اجاره ملک</title>
   <meta name="description" content="خرید، فروش، رهن، اجاره، پیش‌فروش و مشارکت در ساخت املاک و مستغلات. مشاور املاک خانی همراه و مشاور امین شما.">
   
+  <!-- Content Security Policy (CSP) Security Header Layer -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval';">
+  
   <!-- فونت وزیرمتن -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
 
@@ -29,6 +32,17 @@
       margin: 0;
       padding: 0;
       font-family: 'Vazirmatn', sans-serif;
+      -webkit-user-select: none; /* جلوگیری از انتخاب متن */
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    input, textarea, select {
+      -webkit-user-select: auto;
+      -moz-user-select: auto;
+      -ms-user-select: auto;
+      user-select: auto;
     }
 
     body {
@@ -39,7 +53,6 @@
       padding-bottom: 70px;
     }
 
-    /* Header & Navigation */
     header {
       background: var(--primary);
       color: white;
@@ -98,14 +111,8 @@
       background: var(--accent-hover);
     }
 
-    /* Views Framework */
-    .view {
-      display: none;
-    }
-
-    .view.active {
-      display: block;
-    }
+    .view { display: none; }
+    .view.active { display: block; }
 
     .container {
       max-width: 1200px;
@@ -113,7 +120,6 @@
       padding: 0 1rem;
     }
 
-    /* Hero Section */
     .hero {
       background: linear-gradient(rgba(15, 44, 89, 0.88), rgba(15, 44, 89, 0.92)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600') center/cover;
       color: white;
@@ -134,7 +140,6 @@
       margin-bottom: 2rem;
     }
 
-    /* Search Box Card */
     .search-card {
       background: white;
       color: var(--text-main);
@@ -181,7 +186,6 @@
       background: var(--primary-light);
     }
 
-    /* Listings Grid & Cards */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -247,7 +251,6 @@
       padding-top: 0.8rem;
     }
 
-    /* Single Property Page */
     .single-property-container {
       background: white;
       padding: 2rem;
@@ -288,7 +291,6 @@
       color: var(--primary);
     }
 
-    /* Admin & Forms */
     .form-group {
       margin-bottom: 1rem;
     }
@@ -316,7 +318,6 @@
       cursor: not-allowed;
     }
 
-    /* Sticky Call Bar for Mobile */
     .sticky-call-bar {
       position: fixed;
       bottom: 0;
@@ -352,7 +353,6 @@
       font-weight: bold;
     }
 
-    /* Footer */
     footer {
       background: var(--primary);
       color: white;
@@ -433,7 +433,6 @@
       <h2>تجربه معاملاتی امن، شفاف و ماندگار در حوزه املاک و مستغلات</h2>
       <p>ارائه حرفه‌ای‌ترین خدمات خرید، فروش، رهن و اجاره در منطقه و محدوده همجوار</p>
       
-      <!-- Search Filter Bar -->
       <div class="search-card">
         <div class="search-grid">
           <select id="home-filter-type">
@@ -639,8 +638,82 @@
     <a href="javascript:void(0)" onclick="showView('admin')" class="admin-link">ورود به پنل مدیریت</a>
   </footer>
 
-  <!-- JavaScript Logic -->
+  <!-- JavaScript Security & Application Logic -->
   <script>
+    /* ==========================================================================
+       SECTION 1: CLIENT-SIDE SECURITY & ANTI-DEBUGGING LAYERS
+       ========================================================================== */
+    
+    // 1.1 Block Right-Click Context Menu
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      return false;
+    });
+
+    // 1.2 Block Developer Tools Keyboard Shortcuts
+    document.addEventListener('keydown', function(e) {
+      // F12
+      if (e.key === 'F12' || e.keyCode === 123) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+Shift+I (Inspect)
+      if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.keyCode === 73)) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+Shift+J (Console)
+      if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j' || e.keyCode === 74)) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+U (View Source)
+      if (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.keyCode === 85)) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+Shift+C
+      if (e.ctrlKey && e.shiftKey && (e.key === 'C' || e.key === 'c' || e.keyCode === 67)) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+S (Save Page)
+      if (e.ctrlKey && (e.key === 'S' || e.key === 's' || e.keyCode === 83)) {
+        e.preventDefault();
+        return false;
+      }
+    });
+
+    // 1.3 Anti-Debugging Loop (Freezes execution if DevTools is opened)
+    (function antiDebugEngine() {
+      function _0xdebug() {
+        setInterval(function() {
+          (function() {}.constructor("debugger")());
+        }, 150);
+      }
+      try {
+        _0xdebug();
+      } catch (err) {}
+    })();
+
+    // 1.4 Helper function to sanitize inputs against XSS attacks
+    function sanitizeInput(str) {
+      if (typeof str !== 'string') return str;
+      return str.replace(/[&<>"']/g, function(m) {
+        return {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;'
+        }[m];
+      });
+    }
+
+    /* ==========================================================================
+       SECTION 2: APPLICATION BUSINESS LOGIC
+       ========================================================================== */
+
     const CONFIG = {
       API_URL: "https://script.google.com/macros/s/AKfycbwKvgJIjDCBpKWh1n0QS8zoSMzyqMkelZOvsF4-UdRXGQx8rJG9-l3BL9i3s9KevDRE/exec"
     };
@@ -714,7 +787,7 @@
     }
 
     function showError(msg) {
-      document.getElementById('home-featured-listings').innerHTML = `<p style="color:red; text-align:center; grid-column: 1/-1;">${msg}</p>`;
+      document.getElementById('home-featured-listings').innerHTML = `<p style="color:red; text-align:center; grid-column: 1/-1;">${sanitizeInput(msg)}</p>`;
     }
 
     function renderHomeListings(data) {
@@ -746,15 +819,15 @@
       }
 
       return `
-        <div class="card" onclick="openProperty('${item.id}')">
-          <img src="${imageSrc}" class="card-img" alt="${item.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600'">
+        <div class="card" onclick="openProperty('${sanitizeInput(String(item.id))}')">
+          <img src="${imageSrc}" class="card-img" alt="${sanitizeInput(item.title)}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600'">
           <div class="card-body">
-            <span class="tag">${item.type} | ${item.category || 'ملک'}</span>
-            <h4 class="card-title">${item.title}</h4>
+            <span class="tag">${sanitizeInput(item.type)} | ${sanitizeInput(item.category || 'ملک')}</span>
+            <h4 class="card-title">${sanitizeInput(item.title)}</h4>
             <div class="card-price">${priceDisplay}</div>
             <div class="card-details">
-              <span>متراژ: ${item.area} متر</span>
-              <span>تعداد اتاق: ${item.bedrooms}</span>
+              <span>متراژ: ${sanitizeInput(String(item.area))} متر</span>
+              <span>تعداد اتاق: ${sanitizeInput(String(item.bedrooms))}</span>
             </div>
           </div>
         </div>
@@ -800,17 +873,17 @@
 
       const html = `
         <button class="btn-search" style="width: auto; margin-bottom: 1.5rem;" onclick="showView('listings')">بازگشت به لیست املاک</button>
-        <h2>${prop.title}</h2>
-        <p style="color: var(--text-muted); margin-bottom: 1rem;">موقعیت: ${prop.address || 'ثبت نشده'} ${prop.neighborhood ? `(${prop.neighborhood})` : ''}</p>
+        <h2>${sanitizeInput(prop.title)}</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">موقعیت: ${sanitizeInput(prop.address || 'ثبت نشده')} ${prop.neighborhood ? `(${sanitizeInput(prop.neighborhood)})` : ''}</p>
         
-        <img src="${imageSrc}" class="gallery-main" alt="${prop.title}" onerror="this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800'">
+        <img src="${imageSrc}" class="gallery-main" alt="${sanitizeInput(prop.title)}" onerror="this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800'">
         
         <div class="prop-meta-grid">
-          <div class="meta-item"><span>نوع معامله</span><strong>${prop.type}</strong></div>
-          <div class="meta-item"><span>نوع ملک</span><strong>${prop.category || '-'}</strong></div>
-          <div class="meta-item"><span>متراژ</span><strong>${prop.area} متر</strong></div>
-          <div class="meta-item"><span>تعداد اتاق</span><strong>${prop.bedrooms}</strong></div>
-          <div class="meta-item"><span>سرویس بهداشتی</span><strong>${prop.bathrooms || 1}</strong></div>
+          <div class="meta-item"><span>نوع معامله</span><strong>${sanitizeInput(prop.type)}</strong></div>
+          <div class="meta-item"><span>نوع ملک</span><strong>${sanitizeInput(prop.category || '-')}</strong></div>
+          <div class="meta-item"><span>متراژ</span><strong>${sanitizeInput(String(prop.area))} متر</strong></div>
+          <div class="meta-item"><span>تعداد اتاق</span><strong>${sanitizeInput(String(prop.bedrooms))}</strong></div>
+          <div class="meta-item"><span>سرویس بهداشتی</span><strong>${sanitizeInput(String(prop.bathrooms || 1))}</strong></div>
         </div>
 
         <div style="font-size: 1.2rem; color: var(--primary); font-weight: 800; margin-bottom: 1.5rem;">
@@ -819,12 +892,12 @@
         </div>
 
         <h3>توضیحات تکمیلی:</h3>
-        <p style="margin-top: 0.5rem; line-height: 1.8; white-space: pre-line;">${prop.description || 'توضیحات تکمیلی توسط مشاور ثبت نشده است.'}</p>
+        <p style="margin-top: 0.5rem; line-height: 1.8; white-space: pre-line;">${sanitizeInput(prop.description || 'توضیحات تکمیلی توسط مشاور ثبت نشده است.')}</p>
 
         <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(212, 175, 55, 0.12); border-radius: 12px; border-right: 4px solid var(--accent);">
           <h4>جهت هماهنگی و بازدید این ملک:</h4>
           <p style="margin-top: 0.5rem;">با مشاور مربوطه تماس بگیرید:</p>
-          <p style="font-size: 1.2rem; font-weight: bold; margin-top: 0.5rem; direction: ltr; text-align: right;">${prop.phone || '09138131077'}</p>
+          <p style="font-size: 1.2rem; font-weight: bold; margin-top: 0.5rem; direction: ltr; text-align: right;">${sanitizeInput(prop.phone || '09138131077')}</p>
         </div>
       `;
 
