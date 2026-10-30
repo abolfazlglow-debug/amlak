@@ -445,7 +445,7 @@
           </select>
 
           <select id="home-filter-category">
-            <option value="">همه دسته‌ها</option>
+            <option value="">همه انواع ملک</option>
             <option value="آپارتمان">آپارتمان</option>
             <option value="ویلا">ویلا / خانه ویلایی</option>
             <option value="زمین">زمین / کلنگی</option>
@@ -481,17 +481,17 @@
             <option value="پیش‌فروش">پیش‌فروش</option>
           </select>
           <select id="filter-category" onchange="filterListings()">
-            <option value="">همه دسته‌ها</option>
+            <option value="">همه انواع ملک</option>
             <option value="آپارتمان">آپارتمان</option>
             <option value="ویلا">ویلا</option>
             <option value="زمین">زمین</option>
             <option value="تجاری">تجاری</option>
           </select>
           <select id="filter-bedrooms" onchange="filterListings()">
-            <option value="">تعداد خواب</option>
-            <option value="1">1 خوابه</option>
-            <option value="2">2 خوابه</option>
-            <option value="3">3 خوابه و بیشتر</option>
+            <option value="">تعداد اتاق</option>
+            <option value="1">1 اتاق</option>
+            <option value="2">2 اتاق</option>
+            <option value="3">3 اتاق و بیشتر</option>
           </select>
         </div>
       </div>
@@ -572,37 +572,48 @@
             </select>
           </div>
           <div class="form-group">
-            <label>دسته‌بندی</label>
-            <select id="adm-category">
-              <option value="آپارتمان">آپارتمان</option>
-              <option value="ویلا">ویلا / خانه ویلایی</option>
-              <option value="زمین">زمین / کلنگی</option>
-              <option value="تجاری">تجاری / مغازه</option>
-            </select>
+            <label>نوع ملک</label>
+            <input type="text" id="adm-category" placeholder="مثلاً: درحد نو / آپارتمان / ویلایی">
           </div>
           <div class="form-group">
-            <label>قیمت کل (تومان) / یا مبلغ رهن</label>
+            <label>قیمت کل (تومان)</label>
             <input type="number" id="adm-price" value="0">
           </div>
           <div class="form-group">
-            <label>اجاره ماهانه (تومان - در صورت اجاره‌ای بودن)</label>
-            <input type="number" id="adm-rent" value="0">
+            <label>مبلغ رهن (تومان)</label>
+            <input type="text" id="adm-mortgage" placeholder="در صورت عدم وجود: ندارد">
+          </div>
+          <div class="form-group">
+            <label>مبلغ اجاره (تومان)</label>
+            <input type="text" id="adm-rent" placeholder="در صورت عدم وجود: ندارد">
           </div>
           <div class="form-group">
             <label>متراژ (مترمربع)</label>
             <input type="number" id="adm-area" required placeholder="120">
           </div>
           <div class="form-group">
-            <label>تعداد خواب</label>
+            <label>تعداد اتاق</label>
             <input type="number" id="adm-bedrooms" value="2">
           </div>
           <div class="form-group">
-            <label>آدرس دقیق / محدوده ملک</label>
-            <input type="text" id="adm-address" required placeholder="محدوده ملک...">
+            <label>تعداد سرویس</label>
+            <input type="number" id="adm-bathrooms" value="1">
           </div>
           <div class="form-group">
-            <label>لینک عکس (URL) - چند عکس را با کاما جدا کنید</label>
-            <input type="text" id="adm-images" placeholder="https://..." required>
+            <label>محدوده / محله</label>
+            <input type="text" id="adm-neighborhood" placeholder="مثلاً: ویلاشهر">
+          </div>
+          <div class="form-group">
+            <label>آدرس دقیق</label>
+            <input type="text" id="adm-address" required placeholder="نجف‌آباد، بلوار معلم...">
+          </div>
+          <div class="form-group">
+            <label>شماره تماس</label>
+            <input type="text" id="adm-phone" value="09138131077">
+          </div>
+          <div class="form-group">
+            <label>لینک عکس‌ها (چند عکس را با کاما جدا کنید)</label>
+            <input type="text" id="adm-images" placeholder="https://...">
           </div>
           <div class="form-group">
             <label>توضیحات کامل ملک</label>
@@ -631,7 +642,7 @@
   <!-- JavaScript Logic -->
   <script>
     const CONFIG = {
-      API_URL: "https://script.google.com/macros/s/AKfycbxMymkvnfRDtA8jN6WFw-rJFFBNRve4ms5OUmv8jxI_fZNuoYd9cE5RQw_oZd8Eg54/exec"
+      API_URL: "https://script.google.com/macros/s/AKfycbwKvgJIjDCBpKWh1n0QS8zoSMzyqMkelZOvsF4-UdRXGQx8rJG9-l3BL9i3s9KevDRE/exec"
     };
 
     let globalListings = [];
@@ -668,7 +679,7 @@
     }
 
     function formatPrice(num) {
-      if (!num || num == 0) return "توافقی / تماس بگیرید";
+      if (!num || num == 0 || num == "ندارد") return "توافقی / تماس بگیرید";
       return Number(num).toLocaleString('fa-IR') + " تومان";
     }
 
@@ -731,19 +742,19 @@
       
       let priceDisplay = formatPrice(item.price);
       if (item.type === "رهن و اجاره") {
-        priceDisplay = `رهن: ${formatPrice(item.price)}<br><small style="font-size:0.85rem; color:#555;">اجاره: ${formatPrice(item.rent)}</small>`;
+        priceDisplay = `رهن: ${formatPrice(item.mortgage || item.price)}<br><small style="font-size:0.85rem; color:#555;">اجاره: ${formatPrice(item.rent)}</small>`;
       }
 
       return `
         <div class="card" onclick="openProperty('${item.id}')">
           <img src="${imageSrc}" class="card-img" alt="${item.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600'">
           <div class="card-body">
-            <span class="tag">${item.type} | ${item.category}</span>
+            <span class="tag">${item.type} | ${item.category || 'ملک'}</span>
             <h4 class="card-title">${item.title}</h4>
             <div class="card-price">${priceDisplay}</div>
             <div class="card-details">
               <span>متراژ: ${item.area} متر</span>
-              <span>تعداد خواب: ${item.bedrooms}</span>
+              <span>تعداد اتاق: ${item.bedrooms}</span>
             </div>
           </div>
         </div>
@@ -790,20 +801,21 @@
       const html = `
         <button class="btn-search" style="width: auto; margin-bottom: 1.5rem;" onclick="showView('listings')">بازگشت به لیست املاک</button>
         <h2>${prop.title}</h2>
-        <p style="color: var(--text-muted); margin-bottom: 1rem;">موقعیت: ${prop.address || 'ثبت نشده'}</p>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">موقعیت: ${prop.address || 'ثبت نشده'} ${prop.neighborhood ? `(${prop.neighborhood})` : ''}</p>
         
         <img src="${imageSrc}" class="gallery-main" alt="${prop.title}" onerror="this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800'">
         
         <div class="prop-meta-grid">
           <div class="meta-item"><span>نوع معامله</span><strong>${prop.type}</strong></div>
-          <div class="meta-item"><span>دسته‌بندی</span><strong>${prop.category}</strong></div>
+          <div class="meta-item"><span>نوع ملک</span><strong>${prop.category || '-'}</strong></div>
           <div class="meta-item"><span>متراژ</span><strong>${prop.area} متر</strong></div>
-          <div class="meta-item"><span>تعداد خواب</span><strong>${prop.bedrooms}</strong></div>
+          <div class="meta-item"><span>تعداد اتاق</span><strong>${prop.bedrooms}</strong></div>
+          <div class="meta-item"><span>سرویس بهداشتی</span><strong>${prop.bathrooms || 1}</strong></div>
         </div>
 
-        <div style="font-size: 1.3rem; color: var(--primary); font-weight: 800; margin-bottom: 1.5rem;">
-          ${prop.type === 'رهن و اجاره' ? 'مبلغ رهن: ' : 'قیمت کل: '} ${formatPrice(prop.price)}
-          ${prop.rent > 0 ? `<br><small style="font-size: 1rem; color: #555;">اجاره ماهانه: ${formatPrice(prop.rent)}</small>` : ''}
+        <div style="font-size: 1.2rem; color: var(--primary); font-weight: 800; margin-bottom: 1.5rem;">
+          ${prop.type === 'رهن و اجاره' ? 'مبلغ رهن: ' + formatPrice(prop.mortgage || prop.price) : 'قیمت کل: ' + formatPrice(prop.price)}
+          ${prop.rent && prop.rent !== 'ندارد' ? `<br><small style="font-size: 1rem; color: #555;">اجاره ماهانه: ${formatPrice(prop.rent)}</small>` : ''}
         </div>
 
         <h3>توضیحات تکمیلی:</h3>
@@ -811,8 +823,8 @@
 
         <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(212, 175, 55, 0.12); border-radius: 12px; border-right: 4px solid var(--accent);">
           <h4>جهت هماهنگی و بازدید این ملک:</h4>
-          <p style="margin-top: 0.5rem;">با دفتر املاک خانی تماس بگیرید:</p>
-          <p style="font-size: 1.2rem; font-weight: bold; margin-top: 0.5rem; direction: ltr; text-align: right;">09138131077 | 09300311404</p>
+          <p style="margin-top: 0.5rem;">با مشاور مربوطه تماس بگیرید:</p>
+          <p style="font-size: 1.2rem; font-weight: bold; margin-top: 0.5rem; direction: ltr; text-align: right;">${prop.phone || '09138131077'}</p>
         </div>
       `;
 
@@ -836,14 +848,17 @@
         type: document.getElementById('adm-type').value,
         category: document.getElementById('adm-category').value,
         price: Number(document.getElementById('adm-price').value),
-        rent: Number(document.getElementById('adm-rent').value),
+        mortgage: document.getElementById('adm-mortgage').value || "ندارد",
+        rent: document.getElementById('adm-rent').value || "ندارد",
         area: Number(document.getElementById('adm-area').value),
         bedrooms: Number(document.getElementById('adm-bedrooms').value),
+        bathrooms: Number(document.getElementById('adm-bathrooms').value),
+        neighborhood: document.getElementById('adm-neighborhood').value,
         address: document.getElementById('adm-address').value,
+        phone: document.getElementById('adm-phone').value || "09138131077",
         description: document.getElementById('adm-description').value,
         images: imagesList,
-        phone: "09138131077",
-        status: "فعال"
+        status: "نفروخته"
       };
 
       try {
