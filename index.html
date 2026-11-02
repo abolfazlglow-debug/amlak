@@ -1,157 +1,286 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>در حال بروزرسانی</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سایت در حال بروزرسانی است</title>
+    <style>
+        :root {
+            --bg-color: #000000;
+            --text-color: #ffffff;
+            --border-color: #333333;
+            --dim-color: #666666;
+            --card-bg: #0a0a0a;
+        }
 
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: monospace, Tahoma, sans-serif;
+        }
 
-  html, body {
-    height: 100%;
-  }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
 
-  body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 20px;
-    font-family: "Vazirmatn", Tahoma, "Segoe UI", sans-serif;
-    background: #0b1020;
-    background-image:
-      radial-gradient(circle at 20% 20%, rgba(88, 101, 242, .25), transparent 45%),
-      radial-gradient(circle at 80% 80%, rgba(0, 200, 255, .20), transparent 45%),
-      radial-gradient(circle at 50% 0%, rgba(255, 0, 150, .12), transparent 55%);
-    color: #fff;
-    overflow: hidden;
-  }
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.02);
+        }
 
-  /* ---- کارت اصلی ---- */
-  .card {
-    position: relative;
-    width: 100%;
-    max-width: 620px;
-    padding: 48px 28px 40px;
-    text-align: center;
-    border-radius: 26px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, .45);
-    animation: fadeUp .8s ease both;
-  }
+        /* گوشه‌های دکوراتیو تکنیکال */
+        .container::before, .container::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border: 1px solid var(--text-color);
+        }
+        .container::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .container::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+        .graphic-wrapper {
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+        }
 
-  /* ---- آیکون چرخ‌دنده ---- */
-  .icon {
-    width: 78px;
-    height: 78px;
-    margin: 0 auto 26px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: linear-gradient(145deg, #5865f2, #00c8ff);
-    box-shadow: 0 0 32px rgba(88, 101, 242, .55);
-    animation: pulse 2.4s ease-in-out infinite;
-  }
+        /* انیمیشن و جزییات تصویر مونوکروم مک‌بوک و برنامه نویس */
+        .dev-svg {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%) contrast(150%);
+        }
 
-  @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 24px rgba(88, 101, 242, .45); }
-    50%      { box-shadow: 0 0 46px rgba(0, 200, 255, .75); }
-  }
+        /* انیمیشن مانیتور و کیبورد */
+        @keyframes typing-glow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
 
-  .icon svg {
-    width: 40px;
-    height: 40px;
-    fill: #fff;
-    animation: spin 4s linear infinite;
-  }
+        .screen-code {
+            animation: typing-glow 1.5s infinite alternate;
+        }
 
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
+        h1 {
+            font-size: 1.8rem;
+            text-align: center;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 15px;
+            width: 100%;
+        }
 
-  /* ---- متن‌ها ---- */
-  h1 {
-    font-size: clamp(1.5rem, 5vw, 2.1rem);
-    font-weight: 800;
-    letter-spacing: -.5px;
-    margin-bottom: 12px;
-    background: linear-gradient(90deg, #ffffff, #9fb4ff, #00e0ff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+        p {
+            color: var(--dim-color);
+            text-align: center;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
 
-  .subtitle {
-    font-size: .98rem;
-    line-height: 1.9;
-    color: rgba(255, 255, 255, .68);
-    margin-bottom: 34px;
-  }
+        .terminal-box {
+            width: 100%;
+            background: #000;
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            font-size: 0.85rem;
+            color: #ccc;
+            text-align: left;
+            direction: ltr;
+            margin-bottom: 25px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+        }
 
-  .label {
-    font-size: .85rem;
-    letter-spacing: .5px;
-    color: rgba(255, 255, 255, .55);
-    margin-bottom: 14px;
-  }
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background: var(--text-color);
+            margin-left: 5px;
+            animation: blink 1s infinite;
+        }
 
-  /* ---- تایمر ---- */
-  .timer {
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-    gap: 10px;
-    margin-bottom: 18px;
-    direction: ltr; /* چیدمان اعداد از چپ به راست */
-  }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
 
-  .unit {
-    flex: 1 1 0;
-    min-width: 0;
-    padding: 16px 6px 12px;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, .07);
-    border: 1px solid rgba(255, 255, 255, .12);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .10);
-    transition: transform .2s ease;
-  }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--border-color);
+            padding: 6px 16px;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            background: #000;
+        }
 
-  .unit:hover {
-    transform: translateY(-3px);
-  }
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #fff;
+            animation: pulse 2s infinite;
+        }
 
-  .num {
-    display: block;
-    font-size: clamp(1.7rem, 7vw, 2.6rem);
-    font-weight: 800;
-    font-variant-numeric: tabular-nums;
-    line-height: 1.1;
-    color: #fff;
-    text-shadow: 0 0 18px rgba(120, 160, 255, .65);
-  }
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.5; }
+        }
 
-  .cap {
-    display: block;
-    margin-top: 6px;
-    font-size: .72rem;
-    color: rgba(255, 255, 255, .55);
-  }
+        /* ریسپانسیو برای موبایل */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                border: none;
+                background: transparent;
+                box-shadow: none;
+            }
+            h1 {
+                font-size: 1.3rem;
+            }
+            p {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
 
-  .colon {
-    align-self: center;
-    font-size: 1.6rem;
-    font-weight:
+    <div class="container">
+        <!-- بخش گرافیکی پرجزییات برنامه نویس و مک‌بوک (کاملاً مونوکروم و وکتور) -->
+        <div class="graphic-wrapper">
+            <svg class="dev-svg" viewBox="0 0 500 320" xmlns="http://www.w3.org/2000/svg">
+                <!-- میز کار -->
+                <rect x="50" y="270" width="400" height="10" fill="#222" />
+                <rect x="80" y="280" width="340" height="30" fill="#111" />
+                
+                <!-- صندلی / پشت برنامه نویس -->
+                <path d="M160,270 L190,140 L310,140 L340,270 Z" fill="#0f0f0f" stroke="#333" stroke-width="2"/>
+                
+                <!-- بدنه برنامه نویس (کدنویس پشت سیستم) -->
+                <ellipse cx="250" cy="200" rx="45" ry="55" fill="#181818" />
+                <circle cx="250" cy="125" r="24" fill="#222" />
+                <!-- هودی / لباس تیره مونوکروم -->
+                <path d="M205,230 Q250,170 295,230 Z" fill="#0a0a0a" stroke="#333" stroke-width="1.5"/>
+
+                <!-- مک بوک (MacBook) با جزییات کامل -->
+                <!-- بدنه لپ‌تاپ (صفحه نمایش) -->
+                <rect x="175" y="70" width="150" height="100" rx="4" fill="#000" stroke="#fff" stroke-width="2"/>
+                <rect x="180" y="75" width="140" height="90" fill="#050505" />
+                
+                <!-- کدهای روی صفحه نمایش مک‌بوک -->
+                <g class="screen-code">
+                    <line x1="190" y1="90" x2="240" y2="90" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="190" y1="105" x2="270" y2="105" stroke="#888" stroke-width="2.5" stroke-linecap="round"/>
+                    <line x1="205" y1="120" x2="250" y2="120" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="205" y1="132" x2="280" y2="132" stroke="#aaa" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="190" y1="145" x2="230" y2="145" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                </g>
+
+                <!-- پایه و بدنه پایین مک‌بوک -->
+                <path d="M150,172 L350,172 L360,182 L140,182 Z" fill="#222" stroke="#444" stroke-width="1"/>
+                <rect x="235" y="170" width="30" height="3" rx="1" fill="#555" />
+                
+                <!-- دست‌های برنامه نویس روی کیبورد -->
+                <path d="M210,175 Q230,165 245,178" fill="none" stroke="#222" stroke-width="6" stroke-linecap="round"/>
+                <path d="M290,175 Q270,165 255,178" fill="none" stroke="#222" stroke-width="6" stroke-linecap="round"/>
+
+                <!-- جزییات میز: فنجان قهوه -->
+                <rect x="360" y="240" width="22" height="30" rx="2" fill="#000" stroke="#444" stroke-width="1.5"/>
+                <path d="M382,248 Q395,248 395,258 Q395,268 382,268" fill="none" stroke="#444" stroke-width="1.5"/>
+                <!-- بخار فنجان -->
+                <path d="M367,232 Q372,225 367,218" fill="none" stroke="#333" stroke-width="1" stroke-linecap="round"/>
+                <path d="M375,232 Q380,225 375,218" fill="none" stroke="#333" stroke-width="1" stroke-linecap="round"/>
+            </svg>
+        </div>
+
+        <h1>سایت در حال بروزرسانی است</h1>
+        <p>ما در حال بازنویسی، بهینه‌سازی و ارتقای ساختار زیرساخت سایت هستیم. به زودی با نسخه‌ای سریع‌تر، امن‌تر و با امکانات جدید بازخواهیم گشت.</p>
+
+        <!-- ترمینال کدنویسی با تایپ خودکار -->
+        <div class="terminal-box">
+            <span id="typed-text"></span><span class="cursor"></span>
+        </div>
+
+        <div class="status-badge">
+            <span class="status-dot"></span>
+            <span>SYSTEM_REBUILD_IN_PROGRESS</span>
+        </div>
+    </div>
+
+    <script>
+        // اسکریپت ساده برای شبیه‌سازی لاگ‌های ترمینال به سبک هکری/برنامه نویسی
+        const logs = [
+            "Initializing kernel update...",
+            "Optimizing database indices & assets...",
+            "Deploying secure microservices...",
+            "System status: 84% completed...",
+            "Waiting for deployment pipeline..."
+        ];
+        
+        let logIndex = 0;
+        let charIndex = 0;
+        const typedTextElement = document.getElementById('typed-text');
+
+        function typeWriter() {
+            if (logIndex < logs.length) {
+                if (charIndex < logs[logIndex].length) {
+                    typedTextElement.textContent += logs[logIndex].charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeWriter, 40);
+                } else {
+                    setTimeout(() => {
+                        eraseText();
+                    }, 2000);
+                }
+            } else {
+                logIndex = 0;
+                typeWriter();
+            }
+        }
+
+        function eraseText() {
+            if (charIndex > 0) {
+                typedTextElement.textContent = logs[logIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(eraseText, 20);
+            } else {
+                logIndex++;
+                setTimeout(typeWriter, 500);
+            }
+        }
+
+        // شروع انیمیشن ترمینال
+        setTimeout(typeWriter, 1000);
+    </script>
+</body>
+</html>
