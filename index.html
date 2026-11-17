@@ -45,22 +45,32 @@
       user-select: auto;
     }
 
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
     body {
       direction: rtl;
       background-color: var(--bg-light);
       color: var(--text-main);
       line-height: 1.6;
       padding-bottom: 70px;
+      -webkit-overflow-scrolling: touch;
+      text-rendering: optimizeLegibility;
     }
 
     header {
-      background: var(--primary);
+      background: rgba(15, 44, 89, 0.96);
       color: white;
       padding: 1rem 1.5rem;
       position: sticky;
       top: 0;
       z-index: 1000;
       box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      transition: background-color .35s ease, box-shadow .35s ease;
     }
 
     .nav-container {
@@ -136,7 +146,15 @@
     }
 
     .view { display: none; }
-    .view.active { display: block; }
+    .view.active {
+      display: block;
+      animation: viewIn .42s cubic-bezier(.22, 1, .36, 1) both;
+    }
+
+    @keyframes viewIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     .container {
       max-width: 1200px;
@@ -222,7 +240,7 @@
       border-radius: var(--radius);
       overflow: hidden;
       box-shadow: var(--shadow);
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: transform .42s cubic-bezier(.22, 1, .36, 1), box-shadow .42s cubic-bezier(.22, 1, .36, 1);
       cursor: pointer;
     }
 
@@ -325,6 +343,32 @@
       font-weight: bold;
     }
 
+    .btn-primary,
+    .btn-search,
+    .btn-phone,
+    .btn-call,
+    .contact-nav-btn {
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .25s cubic-bezier(.22, 1, .36, 1), background-color .25s ease, box-shadow .25s ease, opacity .25s ease;
+    }
+
+    .btn-primary:hover,
+    .btn-search:hover,
+    .btn-phone:hover,
+    .btn-call:hover,
+    .contact-nav-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(15, 44, 89, .16);
+    }
+
+    .btn-primary:active,
+    .btn-search:active,
+    .btn-phone:active,
+    .btn-call:active,
+    .contact-nav-btn:active {
+      transform: scale(.97);
+    }
+
     .btn-primary {
       background: var(--primary);
       color: white;
@@ -421,6 +465,15 @@
       font-size: 1.2rem;
       color: var(--text-muted);
       grid-column: 1 / -1;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
     }
 
     @media (max-width: 768px) {
@@ -671,7 +724,57 @@
        SECTION 1: CLIENT-SIDE SECURITY & ANTI-DEBUGGING LAYERS
        ========================================================================== */
     
-    // جلوگیری از مختل‌کردن دسترسی کاربران و ابزارهای توسعه حذف شد؛ این موارد جایگزین کنترل امنیتی سمت سرور نیستند.
+    // 1.1 Block Right-Click Context Menu
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      return false;
+    });
+
+    // 1.2 Block Developer Tools Keyboard Shortcuts
+    document.addEventListener('keydown', function(e) {
+      // F12
+      if (e.key === 'F12' || e.keyCode === 123) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+Shift+I (Inspect)
+      if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.keyCode === 73)) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+Shift+J (Console)
+      if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j' || e.keyCode === 74)) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+U (View Source)
+      if (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.keyCode === 85)) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+Shift+C
+      if (e.ctrlKey && e.shiftKey && (e.key === 'C' || e.key === 'c' || e.keyCode === 67)) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+S (Save Page)
+      if (e.ctrlKey && (e.key === 'S' || e.key === 's' || e.keyCode === 83)) {
+        e.preventDefault();
+        return false;
+      }
+    });
+
+    // 1.3 Anti-Debugging Loop (Freezes execution if DevTools is opened)
+    (function antiDebugEngine() {
+      function _0xdebug() {
+        setInterval(function() {
+          (function() {}.constructor("debugger")());
+        }, 150);
+      }
+      try {
+        _0xdebug();
+      } catch (err) {}
+    })();
 
     // 1.4 Helper function to sanitize inputs against XSS attacks
     function sanitizeInput(str) {
